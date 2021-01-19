@@ -15,6 +15,10 @@ const copyFiles = [
   {
     from: path.resolve("src/chrome/inject.js"),
     to: path.resolve("dist")
+  },
+  {
+    from: path.resolve("src/jquery-1.8.3.js"),
+    to: path.resolve("dist/js")
   }
 ];
 

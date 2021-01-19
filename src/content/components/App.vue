@@ -1,29 +1,23 @@
 <template>
-  <div class="greet">
-    hello
-  </div>
+    <div>
+        <h1></h1>
+    </div>
 </template>
 
 <script>
-export default {
-  name: "App",
+    export default {
+        name: "App",
 
-  components: {},
+        components: {},
 
-  data() {
-    return {};
-  },
+        data() {
+            return {};
+        },
+        methods: {},
 
-  methods: {},
+        computed: {},
 
-  computed: {},
-
-  mounted() {}
-};
+        mounted() {
+        },
+    };
 </script>
-
-<style lang="scss" scoped>
-.greet {
-  color: aquamarine;
-}
-</style>
