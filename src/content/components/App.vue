@@ -1,23 +1,22 @@
 <template>
-    <div>
-        <h1></h1>
-    </div>
+  <div>
+    <h1></h1>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "App",
+export default {
+  name: "App",
 
-        components: {},
+  components: {},
 
-        data() {
-            return {};
-        },
-        methods: {},
+  data() {
+    return {};
+  },
+  methods: {},
 
-        computed: {},
+  computed: {},
 
-        mounted() {
-        },
-    };
+  mounted() {}
+};
 </script>
