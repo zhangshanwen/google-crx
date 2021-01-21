@@ -1,0 +1,822 @@
+/* ----------------------------------------------------------- */
+/* == tingle v0.13.2 */
+/* ----------------------------------------------------------- */
+
+.tingle-modal * {
+  box-sizing: border-box;
+}
+
+.tingle-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  visibility: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: rgba(0, 0, 0, .8);
+  opacity: 0;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform .2s ease;
+  transition: -webkit-transform .2s ease;
+  transition: transform .2s ease;
+  transition: transform .2s ease, -webkit-transform .2s ease;
+}
+
+/* confirm and alerts
+-------------------------------------------------------------- */
+
+.tingle-modal--confirm .tingle-modal-box {
+  text-align: center;
+}
+
+/* modal
+-------------------------------------------------------------- */
+
+.tingle-modal--noOverlayClose {
+  cursor: default;
+}
+
+.tingle-modal--noClose .tingle-modal__close {
+  display: none;
+}
+
+.tingle-modal__close {
+  position: fixed;
+  top: 10px;
+  right: 28px;
+  z-index: 1000;
+  padding: 0;
+  width: 5rem;
+  height: 5rem;
+  border: none;
+  background-color: transparent;
+  color: #f0f0f0;
+  font-size: 6rem;
+  font-family: monospace;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-transition: color .3s ease;
+  transition: color .3s ease;
+}
+
+.tingle-modal__closeLabel {
+  display: none;
+}
+
+.tingle-modal__close:hover {
+  color: #fff;
+}
+
+.tingle-modal-box {
+  position: relative;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 60%;
+  border-radius: 4px;
+  background: #fff;
+  opacity: 1;
+  cursor: auto;
+  -webkit-transition: -webkit-transform .3s cubic-bezier(.175, .885, .32, 1.275);
+  transition: -webkit-transform .3s cubic-bezier(.175, .885, .32, 1.275);
+  transition: transform .3s cubic-bezier(.175, .885, .32, 1.275);
+  transition: transform .3s cubic-bezier(.175, .885, .32, 1.275), -webkit-transform .3s cubic-bezier(.175, .885, .32, 1.275);
+  -webkit-transform: scale(.8);
+  -ms-transform: scale(.8);
+  transform: scale(.8);
+}
+
+.tingle-modal-box__content {
+  padding: 3rem 3rem;
+}
+
+.tingle-modal-box__footer {
+  padding: 1.5rem 2rem;
+  width: auto;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background-color: #f5f5f5;
+  cursor: auto;
+}
+
+.tingle-modal-box__footer::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.tingle-modal-box__footer--sticky {
+  position: fixed;
+  bottom: -200px; /* TODO : find a better way */
+  z-index: 10001;
+  opacity: 1;
+  -webkit-transition: bottom .3s ease-in-out .3s;
+  transition: bottom .3s ease-in-out .3s;
+}
+
+/* state
+-------------------------------------------------------------- */
+
+.tingle-enabled {
+  position: fixed;
+  overflow: hidden;
+  left: 0;
+  right: 0;
+}
+
+.tingle-modal--visible .tingle-modal-box__footer {
+  bottom: 0;
+}
+
+.tingle-enabled .tingle-content-wrapper {
+  -webkit-filter: blur(8px);
+  filter: blur(8px);
+}
+
+.tingle-modal--visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tingle-modal--visible .tingle-modal-box {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.tingle-modal--overflow {
+  overflow-y: scroll;
+  padding-top: 8vh;
+}
+
+/* btn
+-------------------------------------------------------------- */
+
+.tingle-btn {
+  display: inline-block;
+  margin: 0 .5rem;
+  padding: 1rem 2rem;
+  border: none;
+  background-color: grey;
+  box-shadow: none;
+  color: #fff;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: normal;
+  cursor: pointer;
+  -webkit-transition: background-color .4s ease;
+  transition: background-color .4s ease;
+}
+
+.tingle-btn--primary {
+  background-color: #3498db;
+}
+
+.tingle-btn--danger {
+  background-color: #e74c3c;
+}
+
+.tingle-btn--default {
+  background-color: #34495e;
+}
+
+.tingle-btn--pull-left {
+  float: left;
+}
+
+.tingle-btn--pull-right {
+  float: right;
+}
+
+/* responsive
+-------------------------------------------------------------- */
+
+@media (max-width : 540px) {
+  .tingle-modal {
+    top: 0px;
+    display: block;
+    padding-top: 60px;
+    width: 100%;
+  }
+
+  .tingle-modal-box {
+    width: auto;
+    border-radius: 0;
+  }
+
+  .tingle-modal-box__content {
+    overflow-y: scroll;
+  }
+
+  .tingle-modal--noClose {
+    top: 0;
+  }
+
+  .tingle-modal--noOverlayClose {
+    padding-top: 0;
+  }
+
+  .tingle-modal-box__footer .tingle-btn {
+    display: block;
+    float: none;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .tingle-modal__close {
+    top: 0;
+    right: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 60px;
+    border: none;
+    background-color: #2c3e50;
+    box-shadow: none;
+    color: #fff;
+    line-height: 55px;
+  }
+
+  .tingle-modal__closeLabel {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  }
+
+  .tingle-modal__closeIcon {
+    display: inline-block;
+    margin-right: .5rem;
+    vertical-align: middle;
+    font-size: 4rem;
+  }
+}
+
+@supports ((-webkit-backdrop-filter: blur(12px)) or (backdrop-filter: blur(12px))) {
+  .tingle-modal {
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+
+  @media (max-width : 540px) {
+    .tingle-modal {
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+  }
+
+  .tingle-enabled .tingle-content-wrapper {
+    -webkit-filter: none;
+    filter: none;
+  }
+}
+.warningMsg {
+  width: 100%;
+  margin-top: 44px;
+  margin-bottom: -44px;
+  background-color: #fcf8e3;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  height: 45px;
+  padding-top: 13px;
+}
+.warningMsg .closeWarning {
+  float: right;
+  background-image: url('chrome-extension://__MSG_@@extension_id__/js/aso/x.svg');
+  margin-top: 2px;
+  margin-right: 14px;
+  width: 15px;
+  height: 14px;
+}
+.ASOToolOn {
+}
+.ASOToolOn.tingle-enabled {
+  width: 100% !important;
+}
+.ASOToolOn .tingle-modal-box {
+  width: 733px;
+}
+.ASOToolOn .tingle-modal-box input:focus,
+.ASOToolOn .tingle-modal-box select:focus,
+.ASOToolOn .tingle-modal-box textarea:focus,
+.ASOToolOn .tingle-modal-box button {
+  cursor: pointer;
+}
+.ASOToolOn .tingle-modal-box input:focus:focus,
+.ASOToolOn .tingle-modal-box select:focus:focus,
+.ASOToolOn .tingle-modal-box textarea:focus:focus,
+.ASOToolOn .tingle-modal-box button:focus {
+  outline: none;
+}
+.ASOToolOn .tingle-modal-box h1 {
+  font-size: 22px;
+  font-weight: 500;
+  color: #4d4d4d;
+}
+.ASOToolOn .tingle-modal-box h2 {
+  font-size: 14px;
+  margin-left: 5px;
+}
+.ASOToolOn .tingle-modal-box textarea {
+  border: 0;
+  border-bottom: #f4f4f4;
+  width: 100%;
+  height: 200px;
+  font-size: 15px;
+  padding-top: 27px;
+  resize: none;
+}
+.ASOToolOn .tingle-modal-box .tingle-modal-box__content {
+  border-radius: 3px;
+  overflow: hidden;
+  height: 374px;
+  padding: 0;
+}
+.ASOToolOn .tingle-modal-box .tingle-modal-box__content > div {
+  padding: 0px 27px;
+}
+.ASOToolOn .tingle-modal-box .tingle-modal-box__content .header {
+  padding-top: 20px;
+  background-color: #f7f7f7;
+  height: 68px;
+}
+.ASOToolOn .tingle-modal-box .tingle-modal-box__content .header .close {
+  float: right;
+  background-image: url('chrome-extension://__MSG_@@extension_id__/js/aso/x.svg');
+  width: 22px;
+  height: 21px;
+  margin-top: -25px;
+}
+.ASOToolOn .tingle-modal-box .body {
+  border-bottom: 1px solid #f4f4f4;
+  padding-right: 0px !important;
+}
+.ASOToolOn .tingle-modal-box .feedbackLoading {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/js/aso/feedbackLoading.gif');
+  width: 85px;
+  height: 23px;
+  background-position-y: -29px;
+  margin-left: -7px;
+}
+.ASOToolOn .tingle-modal-box .thankyou-text {
+  position: absolute;
+  left: 31%;
+  top: 40%;
+}
+.ASOToolOn .tingle-modal-box .thankyou-text h1 {
+  font-size: 30px;
+}
+.ASOToolOn .tingle-modal-box .thankyou-text h2 {
+  font-size: 18px;
+}
+.ASOToolOn .tingle-modal-box .rating.final-emoji {
+  margin-left: -180px;
+  margin-top: -2px;
+  height: 380px;
+  width: 380px;
+  opacity: 1;
+  background-size: contain;
+}
+.ASOToolOn .tingle-modal-box .rating {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  margin-right: 20px;
+  border: 3px solid white;
+  opacity: 1;
+  filter: grayscale(0%);
+}
+.ASOToolOn .tingle-modal-box .rating.orange {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/js/aso/mid.svg');
+}
+.ASOToolOn .tingle-modal-box .rating.orange.active {
+  border-color: #c8a414;
+}
+.ASOToolOn .tingle-modal-box .rating.red {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/js/aso/sad.svg');
+}
+.ASOToolOn .tingle-modal-box .rating.red.active {
+  border-color: #b44146;
+}
+.ASOToolOn .tingle-modal-box .rating.green {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/js/aso/happy.svg');
+}
+.ASOToolOn .tingle-modal-box .rating.green.active {
+  border-color: #478847;
+}
+.ASOToolOn .tingle-modal-box .rating:last-child {
+  margin-right: 0;
+}
+.ASOToolOn .feedback-footer .rating-pad {
+  text-align: center;
+  display: inline-block;
+  width: calc(100% - 140px);
+  height: 100px;
+  padding-top: 15px;
+}
+.ASOToolOn .feedback-footer .rating-pad .rating-cont {
+  display: inline-block;
+  border-radius: 31px;
+  height: 60px;
+}
+.ASOToolOn .feedback-footer .rating-pad .rating-cont.active .rating {
+  opacity: 0.6;
+  filter: grayscale(85%);
+}
+.ASOToolOn .feedback-footer .rating-pad .rating-cont:hover .rating {
+  opacity: 0.6;
+  filter: grayscale(85%);
+}
+.ASOToolOn .feedback-footer .rating-pad .rating-cont .rating:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+.ASOToolOn .feedback-footer .rating-pad .rating-cont .rating.active {
+  opacity: 1 !important;
+  filter: grayscale(0%);
+}
+.ASOToolOn .feedback-footer .send {
+  background-color: #90c146;
+  width: 120px;
+  float: right;
+  text-align: center;
+  height: 34px;
+  color: white;
+  margin-top: 37px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+}
+.ASOToolOn .feedback-footer .send.disable {
+  opacity: 0.7;
+}
+.ASOToolOn .smCamping {
+  display: inline-block;
+  padding: 10px 18px;
+  text-align: center;
+  width: 100%;
+  margin-top: 0px;
+}
+.ASOToolOn .smCamping .h1Div {
+  font-size: 14px;
+  font-weight: 500;
+}
+.ASOToolOn .smCamping a {
+  text-decoration: none;
+  border-bottom: 1px dotted #2f86d4;
+  display: inline-block;
+  margin-top: 4px;
+}
+.ASOToolOn .preview-iframe-wrapper {
+  height: 540px;
+}
+.ASOToolOn .preview-tool {
+  height: 500px;
+  width: 350px;
+  min-width: 300px;
+}
+.ASOToolOn .preview-tool * {
+  outline: none;
+}
+.ASOToolOn .preview-tool.white-background {
+  background-color: white;
+}
+.ASOToolOn .preview-tool.white-background .wrapper {
+  background-color: white;
+}
+.ASOToolOn .mobileEmulator {
+  width: 291px;
+  height: 545px;
+  position: static;
+  margin: 0 auto;
+}
+.ASOToolOn .mobileEmulatorContainer {
+  position: relative;
+}
+.ASOToolOn .importLoading {
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url('chrome-extension://__MSG_@@extension_id__/js/aso/loading.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.ASOToolOn select#localization {
+  margin-bottom: 20px;
+  width: 210px;
+  font-size: 13px;
+}
+.ASOToolOn .panel {
+  /*text-align: center;*/
+  display: inline-block;
+  left: auto;
+  margin-left: 0;
+}
+.ASOToolOn .localizationTitle {
+  text-align: center;
+  font-size: 13px;
+  color: dimgrey;
+  text-align: left;
+}
+.ASOToolOn .non-supported-msg {
+  color: red;
+  display: none;
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.ASOToolOn .bottomText {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+}
+.ASOToolOn .topText {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+  margin-top: 53%;
+}
+.ASOToolOn .topErrorText {
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+  margin-top: 53%;
+}
+.ASOToolOn .importLoadingCont.error .topErrorText {
+  display: block;
+}
+.ASOToolOn .importLoadingCont.error .topText {
+  display: none;
+}
+.ASOToolOn .importLoadingCont.error .importLoading {
+  display: none;
+}
+.ASOToolOn .download-btn.loading {
+  opacity: 0.2;
+}
+.ASOToolOn .panel-cont {
+  padding-left: 10px;
+}
+.ASOToolOn .panel-cont .icon {
+  fill: #616161;
+  margin-top: 0px;
+  margin-bottom: -6px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.ASOToolOn .panel-cont .icon:hover {
+  fill: black;
+}
+.ASOToolOn .panel-cont .icon.loading {
+  fill: black;
+}
+.ASOToolOn .download-error {
+  display: none;
+  color: red;
+  position: absolute;
+  z-index: 1;
+  width: 198px;
+  right: 55px;
+  text-align: center;
+  background: #333;
+  padding: 9px;
+  border-radius: 7px;
+  border: 1px solid white;
+}
+.ASOToolOn .panel-cont.error .download-error {
+  display: block;
+}
+.ASOToolOn download-btn:disabled {
+  background: #dddddd;
+}
+.ASOToolOn .importLoadingCont {
+  font-size: 11px;
+}
+.ASOToolOn .loadingSvgCont {
+  position: absolute;
+  width: 37px;
+  height: 37px;
+  display: none;
+  top: 22px;
+  right: 65px;
+}
+.ASOToolOn .smFooter {
+  text-align: center;
+  margin-bottom: 35px;
+  font-size: 12px;
+}
+.ASOToolOn .smLogo {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/js/aso/smLogo.svg');
+  display: inline-block;
+  background-repeat: no-repeat;
+  width: 88px;
+  height: 16px;
+  margin-left: 5px;
+  margin-bottom: -3px;
+}
+.ASOToolOn .download-tooltip-outer {
+  position: relative;
+}
+.ASOToolOn .download-tooltip {
+  z-index: 2;
+  top: 1px;
+  padding: 1px;
+  position: absolute;
+  width: 150px;
+  display: none;
+  height: auto;
+  right: -4px;
+  border-radius: 6px;
+  right: 0px;
+  color: white;
+  text-align: center;
+  background: #444;
+  opacity: 1;
+  border: 1px solid white;
+}
+.ASOToolOn .pageContainer {
+  display: table;
+  width: 100%;
+}
+.ASOToolOn .tippy-popper {
+  margin-left: 15px !important;
+}
+.ASOToolOn #smWebView {
+  display: table-cell;
+  vertical-align: top;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+.ASOToolOn .download-btn {
+  margin-top: 4px;
+}
+.ASOToolOn .preview-tool {
+  position: static;
+  display: table-cell;
+  height: 100vh;
+  vertical-align: top;
+  width: 360px;
+}
+.ASOToolOn .preview-tool .wrapper {
+  height: inherit;
+  padding-top: 15px;
+  overflow: hidden;
+}
+.ASOToolOn body {
+  margin-right: 430px !important;
+  overflow: hidden;
+}
+.ASOToolOn html {
+  background-color: white !important;
+}
+.ASOToolOn .preview-iframe-wrapper {
+  height: 540px;
+}
+.ASOToolOn .storeFrameContainer {
+  top: 0;
+  left: 10px;
+  position: relative;
+  float: left;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top;
+  margin-top: 10px;
+}
+.ASOToolOn .storeFrameContainer .iphonex-phone-layer {
+  display: none;
+}
+.ASOToolOn .storeFrameContainer .preview-iframe {
+  position: initial;
+  width: 100%;
+  height: auto;
+  border: none;
+}
+.ASOToolOn .storeFrameContainer.iphone5 {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/js/aso/iphone5bg.png');
+}
+.ASOToolOn .storeFrameContainer.iphone5 .importLoadingCont {
+  width: 214px;
+  margin-left: 43px;
+  margin-top: 83px;
+  height: 383px;
+}
+.ASOToolOn .storeFrameContainer.iphone5 iframe.preview-iframe {
+  height: 696px;
+  margin-top: 83px;
+  width: 389px;
+  margin-left: 43px;
+  transform: scale(0.55);
+  transform-origin: 0px 0px 0px;
+}
+.ASOToolOn .storeFrameContainer.iphone6 {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/js/aso/iphone8.png');
+}
+.ASOToolOn .storeFrameContainer.iphone6 .importLoadingCont {
+  margin-top: 65px;
+  height: 412px;
+  margin-left: 29px;
+  width: 232px;
+}
+.ASOToolOn .storeFrameContainer.iphone6 iframe.preview-iframe {
+  margin-top: 65px;
+  height: 686px;
+  margin-left: 29px;
+  width: 386px;
+  transform: scale(0.6);
+  transform-origin: 0px 0px 0px;
+}
+.ASOToolOn .storeFrameContainer.iphone6plus {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/js/aso/iphone8_plus.png');
+}
+.ASOToolOn .storeFrameContainer.iphone6plus .importLoadingCont {
+  height: 412px;
+  margin-top: 65px;
+  width: 232px;
+  margin-left: 29px;
+}
+.ASOToolOn .storeFrameContainer.iphone6plus iframe.preview-iframe {
+  margin-top: 65px;
+  height: 686px;
+  width: 386px;
+  margin-left: 29.5px;
+  transform: scale(0.6);
+  transform-origin: 0px 0px 0px;
+}
+.ASOToolOn .storeFrameContainer.iphonex .iphonex-phone-layer {
+  background-image: url(chrome-extension://__MSG_@@extension_id__/js/aso/iphonextr.png);
+  display: block;
+  height: 100%;
+  background-color: transparent;
+  margin-top: 0px;
+  width: 100%;
+  margin-left: 0px;
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 1;
+  pointer-events: none;
+}
+.ASOToolOn .storeFrameContainer.iphonex .importLoadingCont {
+  height: 508px;
+  width: 232px;
+  margin-top: 19px;
+  margin-left: 21px;
+}
+.ASOToolOn .storeFrameContainer.iphonex iframe.preview-iframe {
+  margin-left: 17px;
+  width: 384px;
+  height: 813px;
+  margin-top: 23px;
+  transform: scale(0.62);
+  transform-origin: 0px 0px 0px;
+}
+.ASOToolOn .importLoadingCont {
+  height: 72.7%;
+  background-color: white;
+  margin-top: 27.5%;
+  width: 81%;
+  margin-left: 9%;
+  position: absolute;
+}
+.ASOToolOn select {
+  font-size: 13px;
+}
+.ASOToolOn select#localization {
+  width: 100px;
+  margin-bottom: 5px !important;
+  margin-right: 5px;
+}
+.ASOToolOn select#force-device {
+  width: 105px;
+}
