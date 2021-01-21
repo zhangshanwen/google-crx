@@ -2,6 +2,7 @@
 node_modules
 /dist
 
+./src/popup/aws-exports.js
 # local env files
 .env.local
 .env.*.local
