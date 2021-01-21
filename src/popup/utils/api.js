@@ -23,9 +23,12 @@ export default {
       };
   },
   PRODUCT: `/app/apps`,
-  APP_ABTEST: (platform, packageName) => `/app/${platform}/${packageName}/abtest`,
-  KEYWORD_STATS: (packageName, wordType) => `/keyword/${packageName}/${wordType}/stats`,
-  KEYWORD_CHECK: (packageName, wordType) => `/keyword/${packageName}/${wordType}/check`,
-  KEYWORD_SIMILARITY: (packageName, local) => `/keyword/${packageName}/${local}/similarity`,
-
+  APP_ABTEST: (platform, packageName) =>
+    `/app/${platform}/${packageName}/abtest`,
+  KEYWORD_STATS: (packageName, wordType) =>
+    `/keyword/${packageName}/${wordType}/stats`,
+  KEYWORD_CHECK: (packageName, wordType) =>
+    `/keyword/${packageName}/${wordType}/check`,
+  KEYWORD_SIMILARITY: (packageName, local) =>
+    `/keyword/${packageName}/${local}/similarity`
 };
